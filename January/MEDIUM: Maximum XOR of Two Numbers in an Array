@@ -1,0 +1,49 @@
+struct Node{
+    Node* bin[2];
+};
+
+Node* newNode(){
+    Node* temp=new Node;
+    temp->bin[0]=nullptr;
+    temp->bin[1]=nullptr;
+    return temp;
+}
+
+class Solution {
+public:
+    Node* head;
+    int findMaximumXOR(vector<int>& nums){
+        head=newNode();
+        for(int i=0;i<nums.size();++i){             // insert in trie
+            Node* crawl=head;
+            bitset<32>b(nums[i]);
+            for(int j=31;j>=0;--j){
+                if(!crawl->bin[b[j]]){
+                    crawl->bin[b[j]]=newNode();
+                }    
+                crawl=crawl->bin[b[j]];
+            }
+        }
+        
+        int ans=0;
+        for(int i=0;i<nums.size();++i){
+            ans=max(ans,max_xor(nums[i]));
+        }
+        return ans;
+    }
+    
+    int max_xor(int a){              // getting maximum xor for a given element in the array
+        bitset<32>b(a);
+        Node* crawl=head;
+        int ans=0;
+        for(int i=31;i>=0;--i){
+            if(crawl->bin[!b[i]]){
+                ans+=(1<<i);
+                crawl=crawl->bin[!b[i]];
+            }else{
+                crawl=crawl->bin[b[i]];
+            }
+        }
+        return ans;
+    }
+};
