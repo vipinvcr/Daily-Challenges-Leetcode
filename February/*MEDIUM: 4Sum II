@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+        unordered_map<int,int> mp; //creating an unordered map
+int count = 0;
+for(int i = 0;i < nums1.size();i++){
+for(int j = 0;j < nums2.size();j++){
+mp[nums1[i]+nums2[j]]++; // increasing the occurrence of the sum of the elements
+}
+}
+for(int i = 0;i < nums3.size();i++){
+for(int j = 0;j < nums4.size();j++){
+int temp = nums3[i]+nums4[j]; //temp stores the sum of the two elements
+count += mp[-temp]; //for example if we have mp[4] it checks for mp[-4] so we get zero then we add it into count.
+}
+}
+return count;
+    }
+};
