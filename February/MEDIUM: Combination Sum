@@ -1,0 +1,82 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> temp;
+        int ind=0;
+        int size = candidates.size();
+        recursion(size, candidates, ans, temp, ind, target);
+        return ans;
+    }
+    
+    void recursion(int size, vector<int>& candidates, vector<vector<int>> &ans, vector<int> &temp, int ind, int target)
+    {
+        if(ind==size)
+        {
+            if(target==0)
+            {
+                ans.push_back(temp);
+            }
+            return;
+        }
+        
+        if(candidates[ind]<=target)
+        {
+            temp.push_back(candidates[ind]);
+            recursion(size, candidates, ans, temp, ind, target-candidates[ind]);
+            temp.pop_back();
+        }
+        recursion(size, candidates, ans, temp, ind+1, target);
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+        vector<vector<int>> ans;
+        vector<int> combo;
+        int size=candidates.size();
+        recursion(0, combo, target, ans, candidates, size);
+        return ans;
+    }
+    
+    void recursion(int ind, vector<int> &combo, int target, vector<vector<int>> &ans, vector<int> &candidates, int size)
+    {
+        if(ind==size)
+        {
+            if(target==0)
+            {
+                ans.push_back(combo);
+            }
+            return;
+        }
+        
+        if(candidates[ind]<=target)
+        {
+            combo.push_back(candidates[ind]);
+            recursion(ind, combo, target-candidates[ind], ans, candidates, size);
+            combo.pop_back();
+            
+        }
+        recursion(ind+1, combo, target, ans, candidates, size);
+        
+    }*/
+};
