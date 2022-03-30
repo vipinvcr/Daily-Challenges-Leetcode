@@ -1,0 +1,83 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int  n=matrix.size();
+        int m=matrix[0].size();
+        if(n==1)
+        {
+            int j=0, k=m-1;
+            while(j<=k)
+            {
+                if(matrix[0][j]==target || matrix[0][k]==target)
+                {
+                    return true;
+                }
+                j++;
+                k--;
+            }
+            return false;
+        }
+        
+        int i=0, j=n-1;
+        int col=-1;
+        while(i<=j)
+        {
+            if(target>=matrix[i][0] && target<matrix[i+1][0])
+            {
+                col=i;
+                break;
+            }
+            else
+            {
+                i++;
+            }
+            
+            if(target>matrix[j-1][m-1])
+            {
+                col=j;
+                break;
+            }
+            else
+            {
+                j--;
+            }
+        }
+        if(col==-1)
+        {
+            return false;
+        }
+        
+        i=0, j=m-1;
+        while(i<=j)
+        {
+            if(target==matrix[col][i] || target==matrix[col][j])
+            {
+                return true;
+            }
+            i++;
+            j--;
+        }
+        return false;
+        
+        
+        /* STRIVER'S CODE
+        int lo = 0;
+        if(!matrix.size()) return false;
+        int hi = (matrix.size() * matrix[0].size()) - 1;
+        
+        while(lo <= hi) {
+            int mid = (lo + (hi - lo) / 2);
+            if(matrix[mid/matrix[0].size()][mid % matrix[0].size()] == target) {
+                return true;
+            }
+            if(matrix[mid/matrix[0].size()][mid % matrix[0].size()] < target) {
+                lo = mid + 1;
+            }
+            else {
+                hi = mid - 1;
+            }
+        }
+        return false;
+        */
+    }
+};
